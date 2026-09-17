@@ -1,0 +1,43 @@
+name: Build PVP Hitboxes
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: PVP Hitboxes 26.3
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Java 25
+        uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: '25'
+
+      - name: Set up Gradle 9.5.1
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '9.5.1'
+
+      - name: Build
+        run: gradle clean build --stacktrace
+
+      - name: Verify final jar
+        run: |
+          mkdir -p dist
+          cp build/libs/pvp-hitboxes-1.0.0.jar dist/pvp-hitboxes-1.0.0+mc26.3.jar
+          jar tf dist/pvp-hitboxes-1.0.0+mc26.3.jar | grep 'me/sootysplash/box/Main.class'
+          jar tf dist/pvp-hitboxes-1.0.0+mc26.3.jar | grep 'pvp-hitboxes.mixins.json'
+          jar tf dist/pvp-hitboxes-1.0.0+mc26.3.jar | grep 'assets/pvp-hitboxes/icon.png'
+
+      - name: Upload mod jar
+        uses: actions/upload-artifact@v4
+        with:
+          name: pvp-hitboxes-1.0.0-mc26.3
+          path: dist/pvp-hitboxes-1.0.0+mc26.3.jar

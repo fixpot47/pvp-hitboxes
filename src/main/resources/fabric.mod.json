@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "id": "pvp-hitboxes",
+  "version": "${version}",
+  "name": "PVP Hitboxes",
+  "description": "Configurable combat hitbox rendering for PvP.",
+  "authors": ["fixpot47"],
+  "contributors": ["Sootysplash - original Combat Hitboxes author"],
+  "contact": {
+    "sources": "https://github.com/fixpot47/pvp-hitboxes",
+    "issues": "https://github.com/fixpot47/pvp-hitboxes/issues"
+  },
+  "license": "Apache-2.0",
+  "icon": "assets/pvp-hitboxes/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "main": ["me.sootysplash.box.Main"],
+    "modmenu": ["me.sootysplash.box.ModMenu"]
+  },
+  "mixins": ["pvp-hitboxes.mixins.json"],
+  "depends": {
+    "fabricloader": ">=0.19.5",
+    "minecraft": "~26.3",
+    "java": ">=25",
+    "fabric-api": "*",
+    "cloth-config": "*",
+    "placeholder-api": "*",
+    "fixlib": ">=2.2.0"
+  },
+  "suggests": {
+    "modmenu": "*"
+  }
+}
